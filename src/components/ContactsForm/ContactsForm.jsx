@@ -4,13 +4,16 @@ import { nanoid } from 'nanoid';
 export class ContactForm extends React.Component {
   state = {  
     name: '',
+    number: '',
   };
 
   nameId = nanoid();
+  numberId = nanoid();
+  
 
   handleSubmit = event => {
     event.preventDefault(); 
-    this.props.onSubmit({ name: this.state.name });
+    this.props.onSubmit({ name: this.state.name, number: this.state.number });
     this.reset();
   };
 
@@ -20,7 +23,7 @@ export class ContactForm extends React.Component {
   };
 
   reset = () => {
-    this.setState({ name: '' });
+    this.setState({ name: '', number: '' });
   };
 
   render() {
@@ -32,6 +35,17 @@ export class ContactForm extends React.Component {
             type="text"
             name="name"
             value={this.state.name}
+            onChange={this.handleChange}
+            title=""
+            required
+          />
+        </label>
+        <label htmlFor={this.numberId}>
+          Number
+          <input
+            type="tel"
+            name="number"
+            value={this.state.number}
             onChange={this.handleChange}
             title=""
             required
