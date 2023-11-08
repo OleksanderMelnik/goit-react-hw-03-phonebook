@@ -5,6 +5,7 @@ import { ContactList } from './ContactsList/ContactsList';
 import { Filter } from './ContactsFilter/ContactsFilter';
 import { Div, Title, TitleContact } from './App.styled';
 
+const LOCAL_STORAGE_KEY = 'key-filter';
 
 export class App extends Component {
   state = {
@@ -16,6 +17,25 @@ export class App extends Component {
     ],
    filter: '',
   };
+
+
+  componentDidMount() {
+    const savedLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+    if (savedLocalStorage !== null) {
+      this.setState({
+        contacts: JSON.parse(savedLocalStorage)
+      })     
+    };
+  }
+
+  componentDidUpdate( prevProps, prevState ) {
+   
+    if (prevState !== this.state) {
+      localStorage.setItem(LOCAL_STORAGE_KEY , JSON.stringify(this.state.contacts));
+    }
+  }
+
 
   addContact = contact => {
     const isFilterContact = this.state.contacts.some(
@@ -53,6 +73,7 @@ export class App extends Component {
   };
 
   render() {
+    
     const visibleContacts = this.getContacts(); 
     const { filter } = this.state;
 
