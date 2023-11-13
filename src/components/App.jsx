@@ -28,14 +28,13 @@ export class App extends Component {
       })     
     };
   }
-
+  
   componentDidUpdate( prevProps, prevState ) {
-   
-    if (prevState !== this.state.contacts) {
-      localStorage.setItem(LOCAL_STORAGE_KEY , JSON.stringify(this.state.contacts));
-    }
-  }
 
+    if (prevState.contacts !== this.state.contacts) {
+    localStorage.setItem(LOCAL_STORAGE_KEY , JSON.stringify(this.state.contacts));
+    }
+    }
 
   addContact = contact => {
     const isFilterContact = this.state.contacts.some(
